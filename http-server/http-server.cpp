@@ -217,7 +217,6 @@ int main(int argc, char* argv[])
 		}
 		else if (strcmp(argv[1], "-uninstall") == 0)
 		{
-			app.stop();
 			UninstallService();
 		}
 	}
