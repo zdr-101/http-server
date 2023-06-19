@@ -2,5 +2,9 @@
 .vs/
 
 
-Release/
+Release/*.dll
+Release/*.pdb
+Release/*.exe
+Release/utils/*.jpg
+Release/utils/*.bmp
 http-server/Release/
