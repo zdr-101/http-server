@@ -14,8 +14,8 @@
 #include "string_utils.h"
 
 #pragma comment (lib,"Advapi32.lib")
-#define SERVICE_NAME "ReadService"
-#define SERVICE_DESC "ReadService cao shang pa"
+#define SERVICE_NAME "bjyx_card_server"
+#define SERVICE_DESC "bjyx_card_server cao shang pa"
 SERVICE_STATUS gServiceStatus;
 SERVICE_STATUS_HANDLE gServiceStatusHandle;
 HANDLE gServiceStopEvent = NULL;
@@ -237,6 +237,7 @@ void RunApp()
 		u->_get_samid_to_str(pcSAMID);
 		x["sam"] = s->gbk_to_utf8(pcSAMID);
 		u->_close_comm();
+		FreeLibrary(u->sdtapi_dll);
 		return x;
 			});
 
@@ -261,6 +262,7 @@ void RunApp()
 		}
 		reading(x);
 		u->_close_comm();
+		FreeLibrary(u->sdtapi_dll);
 		return x;
 			});
 
@@ -357,12 +359,6 @@ void reading(crow::json::wvalue& x)
 }
 int main(int argc, char* argv[])
 {
-	//crow::json::wvalue x;
-
-	//initialize();
-	//reading(x);
-
-	//RunApp();
 
 	if (argc == 2)
 	{
@@ -373,6 +369,17 @@ int main(int argc, char* argv[])
 		else if (strcmp(argv[1], "-delete") == 0)
 		{
 			UninstallService();
+		}
+		else if (strcmp(argv[1], "-run") == 0)
+		{
+			RunApp();
+		}
+		else if (strcmp(argv[1], "-test") == 0)
+		{
+			crow::json::wvalue x;
+
+			initialize();
+			reading(x);
 		}
 	}
 	else

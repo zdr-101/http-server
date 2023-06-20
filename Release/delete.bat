@@ -1,1 +1,1 @@
-cmd /k http-server -delete && http-server -delete && http-server -delete && http-server -delete
+cmd /k http-server -delete
