@@ -245,22 +245,25 @@ void RunApp()
 		([] {
 		crow::json::wvalue x;
 		int init = initialize();
-		if (init != 1)
+
+		switch (init)
 		{
-			if (init == 0)
-			{
-				x["code"] = s->gbk_to_utf8("400");
-				x["msg"] = s->gbk_to_utf8("连接读卡器异常");
-				return x;
-			}
-			if (init == -1)
-			{
-				x["code"] = s->gbk_to_utf8("400");
-				x["msg"] = s->gbk_to_utf8("请将身份证放入指定区域");
-				return x;
-			}
+		case 1:
+			reading(x);
+			break;
+		case 0:
+			x["code"] = s->gbk_to_utf8("400");
+			x["msg"] = s->gbk_to_utf8("连接读卡器异常");
+			break;
+		case -1:
+			x["code"] = s->gbk_to_utf8("400");
+			x["msg"] = s->gbk_to_utf8("请将身份证放入指定区域");
+			break;
+		default:
+			x["code"] = s->gbk_to_utf8("400");
+			x["msg"] = s->gbk_to_utf8("未知错误");
+			break;
 		}
-		reading(x);
 		u->_close_comm();
 		FreeLibrary(u->sdtapi_dll);
 		return x;
