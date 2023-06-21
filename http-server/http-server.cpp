@@ -354,7 +354,7 @@ void reading(crow::json::wvalue& x)
 	// 对字节数组进行Base64编码
 	string base64_str = s->base64_encode(bytes, len);
 
-	x["Base64Photo"] = "{\r\n  \"Base64\": \"data:image/png;base64," + s->gbk_to_utf8(base64_str) + "\"\r\n}";
+	x["Base64Photo"] = "{\r\n  \"Base64\": \"data:image/jpeg;base64," + s->gbk_to_utf8(base64_str) + "\"\r\n}";
 	return;
 }
 int main(int argc, char* argv[])
